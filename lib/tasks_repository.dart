@@ -1,7 +1,7 @@
 import 'package:timer_task_nearcast/models/task.dart';
 
 const _delay = Duration(
-  milliseconds: 500,
+  milliseconds: 200,
 ); // Artificial Delay to support server side fetching later on
 
 class TasksRepository {
@@ -10,11 +10,6 @@ class TasksRepository {
       title: "Task 1",
       description: "Description 1",
       durationRemain: 10,
-    ),
-    Task(
-      title: "Task 2",
-      description: "Description 2",
-      durationRemain: 20,
     ),
   ];
 

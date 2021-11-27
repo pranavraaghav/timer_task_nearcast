@@ -59,13 +59,12 @@ class TasksListItem extends StatelessWidget {
   }
 
   String _calculateRemainingTime() {
-    int secsRemain = task.durationRemain;
+    Duration secsRemain = task.durationRemain;
     if (task.isActive) {
-      final timeDiffSecs =
-          DateTime.now().difference(task.lastStarted).inSeconds;
+      final timeDiffSecs = DateTime.now().difference(task.lastStarted);
       secsRemain = secsRemain - timeDiffSecs;
-      if (secsRemain < 0) secsRemain = 0;
+      if (secsRemain.isNegative) secsRemain = const Duration(seconds: 0);
     }
-    return Duration(seconds: secsRemain).toString().substring(0, 7);
+    return secsRemain.toString().substring(0, 7);
   }
 }

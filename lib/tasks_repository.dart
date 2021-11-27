@@ -9,7 +9,7 @@ class TasksRepository {
     Task(
       title: "Task 1",
       description: "Description 1",
-      durationRemain: 10,
+      durationRemain: const Duration(seconds: 10),
     ),
   ];
 

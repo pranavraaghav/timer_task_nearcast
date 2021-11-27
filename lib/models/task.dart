@@ -5,7 +5,7 @@ class Task extends Equatable {
   final String id;
   final String title;
   final String description;
-  final int durationRemain;
+  final Duration durationRemain;
   final DateTime lastStarted;
   final bool isActive;
 
@@ -24,7 +24,7 @@ class Task extends Equatable {
     String? id,
     String? title,
     String? description,
-    int? durationRemain,
+    Duration? durationRemain,
     DateTime? lastStarted,
     bool? isActive,
   }) {

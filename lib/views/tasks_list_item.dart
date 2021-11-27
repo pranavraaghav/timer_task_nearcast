@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
 import 'package:timer_task_nearcast/models/task.dart';
 
-class TasksListItem extends StatelessWidget {
+class TasksListItem extends StatefulWidget {
   const TasksListItem({
     Key? key,
     required this.task,
@@ -12,6 +12,11 @@ class TasksListItem extends StatelessWidget {
 
   final Task task;
 
+  @override
+  State<TasksListItem> createState() => _TasksListItemState();
+}
+
+class _TasksListItemState extends State<TasksListItem> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -30,11 +35,11 @@ class TasksListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    task.title,
+                    widget.task.title,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   Text(
-                    task.description,
+                    widget.task.description,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -42,8 +47,8 @@ class TasksListItem extends StatelessWidget {
               Text(
                 _calculateRemainingTime(),
                 // TODO: Rewrite this is a better (using Theme preferably)
-                style: task.isActive
-                    ? const TextStyle(color: Colors.red, fontSize: 20)
+                style: widget.task.isActive
+                    ? const TextStyle(color: Colors.green, fontSize: 20)
                     : const TextStyle(color: Colors.grey, fontSize: 20),
               ),
             ],
@@ -51,7 +56,7 @@ class TasksListItem extends StatelessWidget {
         ),
         // TODO: Handle deletion like a sane person
         onLongPress: () {
-          context.read<TasksBloc>().add(TaskRemoved(task));
+          context.read<TasksBloc>().add(TaskRemoved(widget.task));
         },
       ),
       clipBehavior: Clip.hardEdge,
@@ -59,9 +64,9 @@ class TasksListItem extends StatelessWidget {
   }
 
   String _calculateRemainingTime() {
-    Duration secsRemain = task.durationRemain;
-    if (task.isActive) {
-      final timeDiffSecs = DateTime.now().difference(task.lastStarted);
+    Duration secsRemain = widget.task.durationRemain;
+    if (widget.task.isActive) {
+      final timeDiffSecs = DateTime.now().difference(widget.task.lastStarted);
       secsRemain = secsRemain - timeDiffSecs;
       if (secsRemain.isNegative) secsRemain = const Duration(seconds: 0);
     }

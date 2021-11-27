@@ -22,7 +22,10 @@ class TasksPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addDummyTask(context),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const TaskCreatePage()));
+        },
         child: const Icon(Icons.add),
       ),
     );

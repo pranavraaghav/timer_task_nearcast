@@ -31,18 +31,26 @@ class _TasksListItemState extends State<TasksListItem> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.task.title,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Text(
-                    widget.task.description,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+              Flexible(
+                fit: FlexFit.loose,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.task.title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
+                      child: Text(
+                        widget.task.description,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Text(
                 _getRemainingTimeText(),

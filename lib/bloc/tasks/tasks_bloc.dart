@@ -10,6 +10,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   TasksBloc({required this.tasksRepository}) : super(TasksLoading()) {
     on<TasksStarted>(_onStarted);
     on<TaskAdded>(_onAdded);
+    on<TaskUpdated>(_onUpdated);
     on<TaskRemoved>(_onRemoved);
   }
 
@@ -35,6 +36,21 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       } catch (_) {
         emit(TasksError());
       }
+    }
+  }
+
+  void _onUpdated(TaskUpdated event, Emitter<TasksState> emit) {
+    final state = this.state;
+
+    if (state is TasksLoaded) {
+      final updated = state.tasks.map((task) {
+        if (task.id == event.task.id) {
+          return event.task;
+        } else {
+          return task;
+        }
+      });
+      emit(TasksLoaded(tasks: [...updated]));
     }
   }
 

@@ -45,7 +45,7 @@ class _TasksListItemState extends State<TasksListItem> {
                 ],
               ),
               Text(
-                _calculateRemainingTime(),
+                _getRemainingTimeText(),
                 // TODO: Rewrite this is a better (using Theme preferably)
                 style: widget.task.isActive
                     ? const TextStyle(color: Colors.green, fontSize: 20)
@@ -54,6 +54,9 @@ class _TasksListItemState extends State<TasksListItem> {
             ],
           ),
         ),
+        onTap: () {
+          _isActiveToggle(context);
+        },
         // TODO: Handle deletion like a sane person
         onLongPress: () {
           context.read<TasksBloc>().add(TaskRemoved(widget.task));
@@ -63,13 +66,37 @@ class _TasksListItemState extends State<TasksListItem> {
     );
   }
 
-  String _calculateRemainingTime() {
-    Duration secsRemain = widget.task.durationRemain;
+  String _getRemainingTimeText() {
+    Duration durationRemain = widget.task.durationRemain;
     if (widget.task.isActive) {
-      final timeDiffSecs = DateTime.now().difference(widget.task.lastStarted);
-      secsRemain = secsRemain - timeDiffSecs;
-      if (secsRemain.isNegative) secsRemain = const Duration(seconds: 0);
+      durationRemain = _calculateDurationRemain();
     }
-    return secsRemain.toString().substring(0, 7);
+    return durationRemain.toString().substring(0, 7);
+  }
+
+  Duration _calculateDurationRemain() {
+    final timeElapsedSinceStarting =
+        DateTime.now().difference(widget.task.lastStarted);
+    Duration durationRemain =
+        widget.task.durationRemain - timeElapsedSinceStarting;
+    return durationRemain.isNegative
+        ? const Duration(seconds: 0)
+        : durationRemain;
+  }
+
+  _isActiveToggle(BuildContext context) {
+    Task newTask;
+    if (widget.task.isActive) {
+      newTask = widget.task.copyWith(
+        isActive: !widget.task.isActive,
+        durationRemain: _calculateDurationRemain(),
+      );
+    } else {
+      newTask = widget.task.copyWith(
+        isActive: !widget.task.isActive,
+        lastStarted: DateTime.now(),
+      );
+    }
+    BlocProvider.of<TasksBloc>(context).add(TaskUpdated(newTask));
   }
 }

@@ -44,7 +44,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     if (state is TasksLoaded) {
       try {
         tasksRepository.removeTask(event.task);
-        emit(TasksLoaded(tasks: [...state.tasks, event.task]));
+        final updated = state.tasks.where((task) => task.id != event.task.id);
+        emit(TasksLoaded(tasks: [...updated]));
       } catch (_) {
         emit(TasksError());
       }

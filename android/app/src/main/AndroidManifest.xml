@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.timer_task_nearcast">
    <application
-        android:label="timer_task_nearcast"
+        android:label="Timer - Nearcast Task"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

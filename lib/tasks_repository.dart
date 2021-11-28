@@ -5,13 +5,7 @@ const _delay = Duration(
 ); // Artificial Delay to support server side fetching later on
 
 class TasksRepository {
-  final _tasks = <Task>[
-    Task(
-      title: "Task 1",
-      description: "Description 1",
-      durationRemain: const Duration(seconds: 10),
-    ),
-  ];
+  final _tasks = <Task>[];
 
   Future<List<Task>> loadTasks() => Future.delayed(_delay, () => _tasks);
 

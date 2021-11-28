@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
 import 'package:timer_task_nearcast/models/task.dart';
+import 'package:timer_task_nearcast/views/task_edit_page.dart';
 
 class TasksListItem extends StatefulWidget {
   const TasksListItem({
@@ -81,6 +82,25 @@ class _TasksListItemState extends State<TasksListItem> {
               foregroundColor: Colors.white,
               icon: Icons.delete,
               label: 'Delete',
+            ),
+          ],
+        ),
+        startActionPane: ActionPane(
+          extentRatio: 0.4,
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TaskEditPage(task: widget.task)),
+                );
+              },
+              backgroundColor: Colors.blue.shade400,
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'Edit',
             ),
           ],
         ),

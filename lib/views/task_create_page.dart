@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:timer_task_nearcast/views/task_create_form.dart';
+import 'package:timer_task_nearcast/components/task_create_form.dart';
 
 class TaskCreatePage extends StatelessWidget {
   const TaskCreatePage({Key? key}) : super(key: key);

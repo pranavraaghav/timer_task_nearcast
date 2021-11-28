@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
-import 'package:timer_task_nearcast/views/tasks_list_item.dart';
+import 'package:timer_task_nearcast/components/tasks_list_item.dart';
 
 class TasksList extends StatefulWidget {
   const TasksList({Key? key}) : super(key: key);

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
 import 'package:timer_task_nearcast/models/task.dart';
 import 'package:timer_task_nearcast/views/task_create_page.dart';
-import 'package:timer_task_nearcast/views/tasks_list.dart';
+import 'package:timer_task_nearcast/components/tasks_list.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);

@@ -8,12 +8,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => TasksBloc()..add(TasksStarted()),
-        ),
-      ],
+    return BlocProvider(
+      create: (_) => TasksBloc()..add(TasksStarted()),
       child: MaterialApp(
         title: 'Flutter Bloc Timer App',
         theme: ThemeData(primarySwatch: Colors.green),

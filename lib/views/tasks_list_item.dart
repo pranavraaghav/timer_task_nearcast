@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
 import 'package:timer_task_nearcast/models/task.dart';
 
@@ -25,50 +26,64 @@ class _TasksListItemState extends State<TasksListItem> {
       ),
       color: Colors.grey.shade50,
       elevation: 2,
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                fit: FlexFit.loose,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.task.title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    const SizedBox(height: 8.0),
-                    Container(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
-                      child: Text(
-                        widget.task.description,
-                        style: Theme.of(context).textTheme.bodyText1,
+      child: Slidable(
+        key: const ValueKey(0),
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.task.title,
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8.0),
+                      Container(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
+                        child: Text(
+                          widget.task.description,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                _getRemainingTimeText(),
-                // TODO: Rewrite this is a better (using Theme preferably)
-                style: widget.task.isActive
-                    ? const TextStyle(color: Colors.green, fontSize: 20)
-                    : const TextStyle(color: Colors.grey, fontSize: 20),
-              ),
-            ],
+                Text(
+                  _getRemainingTimeText(),
+                  // TODO: Rewrite this is a better (using Theme preferably)
+                  style: widget.task.isActive
+                      ? const TextStyle(color: Colors.green, fontSize: 20)
+                      : const TextStyle(color: Colors.grey, fontSize: 20),
+                ),
+              ],
+            ),
           ),
+          onTap: () {
+            _isActiveToggle(context);
+          },
         ),
-        onTap: () {
-          _isActiveToggle(context);
-        },
-        // TODO: Handle deletion like a sane person
-        onLongPress: () {
-          context.read<TasksBloc>().add(TaskRemoved(widget.task));
-        },
+        endActionPane: ActionPane(
+          extentRatio: 0.4,
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) {
+                context.read<TasksBloc>().add(TaskRemoved(widget.task));
+              },
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+          ],
+        ),
       ),
       clipBehavior: Clip.hardEdge,
     );

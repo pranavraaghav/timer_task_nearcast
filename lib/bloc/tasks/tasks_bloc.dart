@@ -1,24 +1,39 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:timer_task_nearcast/models/task.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'tasks_event.dart';
 part 'tasks_state.dart';
 
-class TasksBloc extends Bloc<TasksEvent, TasksState> {
+class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   TasksBloc() : super(TasksLoading()) {
-    on<TasksStarted>(_onStarted);
     on<TaskAdded>(_onAdded);
     on<TaskUpdated>(_onUpdated);
     on<TaskRemoved>(_onRemoved);
   }
 
-  void _onStarted(TasksStarted event, Emitter<TasksState> emit) async {
-    emit(TasksLoading());
+  @override
+  TasksState? fromJson(Map<String, dynamic> json) {
+    List<dynamic> tasksJson = [];
     try {
-      emit(const TasksLoaded(tasks: <Task>[]));
+      tasksJson = jsonDecode(json["value"]);
+      List<Task> tasks = tasksJson.map((task) => Task.fromJson(task)).toList();
+      return TasksLoaded(tasks: tasks);
     } catch (e) {
-      emit(TasksError());
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(TasksState state) {
+    if (state is TasksLoaded) {
+      String value = jsonEncode(state.tasks);
+      return <String, dynamic>{"value": value};
+    } else {
+      return null;
     }
   }
 

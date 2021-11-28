@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
@@ -11,11 +13,11 @@ class Task extends Equatable {
 
   Task({
     String? id,
+    DateTime? lastStarted,
+    bool? isActive,
     required this.title,
     required this.description,
     required this.durationRemain,
-    DateTime? lastStarted,
-    bool? isActive,
   })  : id = id ?? const Uuid().v4(),
         isActive = isActive ?? false,
         lastStarted = lastStarted ?? DateTime.now();
@@ -39,11 +41,45 @@ class Task extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [id, title, description, durationRemain, lastStarted, isActive];
+  List<Object> get props {
+    return [
+      id,
+      title,
+      description,
+      durationRemain,
+      lastStarted,
+      isActive,
+    ];
+  }
 
   @override
   String toString() {
     return 'Task { id: $id, title: $title, description: $description, durationRemain: $durationRemain, lastStarted: $lastStarted, isActive: $isActive}';
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'durationRemain': durationRemain.inSeconds,
+      'lastStarted': lastStarted.millisecondsSinceEpoch,
+      'isActive': isActive,
+    };
+  }
+
+  factory Task.fromMap(Map<String, dynamic> map) {
+    return Task(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      durationRemain: Duration(seconds: map['durationRemain']),
+      lastStarted: DateTime.fromMillisecondsSinceEpoch(map['lastStarted']),
+      isActive: map['isActive'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Task.fromJson(String source) => Task.fromMap(json.decode(source));
 }

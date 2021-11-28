@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TasksBloc()..add(TasksStarted()),
+      create: (_) => TasksBloc(),
       child: MaterialApp(
         title: 'Flutter Bloc Timer App',
         theme: ThemeData(primarySwatch: Colors.green),

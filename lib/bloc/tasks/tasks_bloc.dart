@@ -9,7 +9,7 @@ part 'tasks_event.dart';
 part 'tasks_state.dart';
 
 class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
-  TasksBloc() : super(TasksLoading()) {
+  TasksBloc() : super(const TasksLoaded(tasks: <Task>[])) {
     on<TaskAdded>(_onAdded);
     on<TaskUpdated>(_onUpdated);
     on<TaskRemoved>(_onRemoved);
@@ -23,7 +23,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       List<Task> tasks = tasksJson.map((task) => Task.fromJson(task)).toList();
       return TasksLoaded(tasks: tasks);
     } catch (e) {
-      return null;
+      return const TasksLoaded(tasks: <Task>[]);
     }
   }
 

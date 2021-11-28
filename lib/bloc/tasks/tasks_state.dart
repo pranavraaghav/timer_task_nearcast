@@ -1,7 +1,7 @@
 part of 'tasks_bloc.dart';
 
 abstract class TasksState extends Equatable {
-  const TasksState();
+  const TasksState() : super();
 }
 
 class TasksLoading extends TasksState {

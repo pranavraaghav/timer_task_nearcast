@@ -1,16 +1,28 @@
-# timer_task_nearcast
+# Nearcast Task - Timer App
 
-A new Flutter project.
+App built using Flutter as a task for interning at Nearcast.
 
-## Getting Started
+## Getting Started 
+``` 
+flutter pub get 
+flutter run
+```
 
-This project is a starting point for a Flutter application.
+## Requirements 
+- [x] Add activity with title and description
+- [x] Set time duration to complete activity
+- [x] Start/Stop Timer 
+- [x] Timer does not stop until user stops it or until timer ends
+- [x] User can start multiple timers simultaneously 
+- [x] User can see all timers with running time parallely
+- [x] Remaining time is updated in real time
 
-A few resources to get you started if this is your first Flutter project:
+### Bounty
+- [x] BloC is used for State Management
+- [x] User friendly and appealing UI 
+- [ ] User can access running timers from notifications
+- [ ] Timer makes noise after completion
+- [ ] Unit test is written with maximum code coverage 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+<img src="./screenshots/app-demo.gif" width="300">

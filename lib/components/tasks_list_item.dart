@@ -49,7 +49,7 @@ class _TasksListItemState extends State<TasksListItem> {
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
                         child: Text(
                           widget.task.description,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                     ],

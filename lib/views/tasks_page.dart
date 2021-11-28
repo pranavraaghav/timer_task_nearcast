@@ -1,9 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:timer_task_nearcast/bloc/tasks/tasks_bloc.dart';
-import 'package:timer_task_nearcast/models/task.dart';
 import 'package:timer_task_nearcast/views/task_create_page.dart';
 import 'package:timer_task_nearcast/components/tasks_list.dart';
 
@@ -27,19 +22,6 @@ class TasksPage extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const TaskCreatePage()));
         },
         child: const Icon(Icons.add),
-      ),
-    );
-  }
-
-  void _addDummyTask(context) {
-    BlocProvider.of<TasksBloc>(context).add(
-      TaskAdded(
-        Task(
-          title: Random().nextInt(30).toString(),
-          description: "Description 1",
-          durationRemain: const Duration(seconds: 10),
-          isActive: true,
-        ),
       ),
     );
   }
